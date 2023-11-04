@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WASM DEMO</title>
+</head>
+<body>
+<h1>Simple WASM Demo</h1>
+<p>First number:</p>
+<p><input id="a"></p>
+<p>Second number:</p>
+<p><input id="b"></p>
+<p><button>Compute</button></p>
+<p>Result of a + b:</p>
+<p><output id="result"></p>
+<script>
+document.querySelector('button').addEventListener('click', () => {
+    const inputs = document.querySelectorAll('input');
+    const result = document.querySelector('#result');
+    const a = inputs[0].value * 1;
+    const b = inputs[1].value * 1;
+
+    if (isNaN(a) || isNaN(b)) {
+      result.value = 'Invalid input';
+    }
+
+    console.log('Loading WASM');
+
+    WebAssembly.instantiateStreaming(fetch("add.wasm")).then((obj) => {
+        console.log('Loaded WASM', obj);
+        const { add } = obj.instance.exports;
+        console.log('Calculating', a, b);
+        result.value = add(a, b);
+    });
+});
+</script>
+</body>
+</html>
