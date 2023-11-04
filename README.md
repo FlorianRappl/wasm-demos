@@ -86,11 +86,28 @@ docker run --runtime=io.containerd.wasmedge.v1 flo/hello:0.1
 
 This will use the wasmedge runtime. There are other runtimes that you can use (e.g., `wasmtime` via `io.containerd.wasmtime.v1`).
 
+## WinterJS
+
+If you want to go full circle you can run JavaScript in WASM. One example is WinterJS from wasmer, which uses SpiderMonkey from Firefox to run supplied JavaScript code (more info [here](https://wasmer.io/posts/announcing-winterjs-service-workers)).
+
+Once you installed wasmer you can run (in the *08-winter* directory):
+
+```sh
+wasmer run wasmer/winterjs --net --mapdir /app:. /app/serviceworker.js
+```
+
 ## Runtimes
 
 - wasmer: https://wasmer.io/
 - wasmtime: https://wasmtime.dev/
 - wasmedge: https://wasmedge.org/
+
+## Extensions
+
+- Component model: https://github.com/WebAssembly/component-model
+- WASI: https://wasi.dev/
+- WAGI: https://github.com/deislabs/wagi
+- WASIX: https://wasix.org/
 
 ## Links and Resources
 
@@ -99,5 +116,8 @@ This will use the wasmedge runtime. There are other runtimes that you can use (e
 - List of examples: https://wasmbyexample.dev/home.en-us.html
 - Node.js integration: https://nodejs.org/en/learn/getting-started/nodejs-with-webassembly
 - WASM code explorer: https://wasdk.github.io/wasmcodeexplorer/
+- runwasi (integrates WASM in K8s and Docker): https://github.com/containerd/runwasi
 - Curated list of WASM resources: https://github.com/mbasso/awesome-wasm
-- Mete Atamel: https://github.com/meteatamel/wasm-basics/blob/main/README.md
+- Modern Frontend Development with Node.js examples, which form the basis for some examples: https://github.com/PacktPublishing/Modern-Frontend-Development-with-Node.js
+- Mete Atamel examples, which form the basis for many examples: https://github.com/meteatamel/wasm-basics/blob/main/README.md
+- Spin v2 announcement: https://www.fermyon.com/blog/introducing-spin-v2
