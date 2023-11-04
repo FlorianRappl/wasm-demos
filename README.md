@@ -18,6 +18,32 @@ You can use the WABT tools to perform the transition (https://github.com/webasse
 
 Let's use the [wat2wasm online](https://webassembly.github.io/wabt/demo/wat2wasm/).
 
+## Using wasmtime
+
+Install a WASM runtime (any of the ones mentioned at the end will work, we will mostly refer to `wasmtime` here - but they are all quite similar).
+
+Now you can run (as an example):
+
+```sh
+wasmtime run ./demos/07-docker/rust/target/wasm32-wasi/debug/hello-wasm.wasm
+```
+
+## Build Dotnet
+
+Make sure to have .NET 8 up and running (available [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)).
+
+You can build the release file:
+
+```sh
+dotnet build -c Release
+```
+
+Once created you can run it via `wasmtime` as explained before like:
+
+```sh
+wasmtime run --mapdir /helloworld::. bin/Release/net8.0/Hello.wasm
+```
+
 ## Compile Rust
 
 Install Rust on your platform according to [the official website](https://www.rust-lang.org/learn/get-started).
@@ -34,19 +60,21 @@ Now build it (e.g., in `/demos/07-docker/rust`):
 cargo build --target wasm32-wasi
 ```
 
-## Using wasmtime
-
-```sh
-wasmtime run ./demos/07-docker/rust/target/wasm32-wasi/debug/hello-wasm.wasm
-```
-
 ## Building and Running Docker
 
-If you have Docker in a recent version installed you can build and run the Docker image in one command:
+If you have Docker in a recent version installed you can build the Docker image:
 
 ```sh
-docker run --rm -it $(docker build -q .)
+docker build -t flo/hello:0.1 .
 ```
+
+Afterwards, you run the Docker image with the chosen runtime:
+
+```sh
+docker run --runtime=io.containerd.wasmedge.v1 flo/hello:0.1
+```
+
+This will use the wasmedge runtime. There are other runtimes that you can use (e.g., `wasmtime` via `io.containerd.wasmtime.v1`).
 
 ## Runtimes
 

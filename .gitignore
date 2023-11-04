@@ -1,2 +1,5 @@
 node_modules
+demos/04-csharp/bin
+demos/04-csharp/obj
+demos/04-csharp/helloworld.txt
 demos/07-docker/rust/target
