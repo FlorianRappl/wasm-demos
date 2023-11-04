@@ -44,6 +44,16 @@ Once created you can run it via `wasmtime` as explained before like:
 wasmtime run --mapdir /helloworld::. bin/Release/net8.0/Hello.wasm
 ```
 
+## Run Node.js with WASI
+
+The `wasi` package is still an experimental feature of Node.js. To support it you'll need a special flag such as `--experimental-wasi-unstable-preview1`.
+
+As an example, running demo 6 could look (Node.js 14 to 18):
+
+```sh
+node --experimental-wasi-unstable-preview1 index.mjs Flo
+```
+
 ## Compile Rust
 
 Install Rust on your platform according to [the official website](https://www.rust-lang.org/learn/get-started).
